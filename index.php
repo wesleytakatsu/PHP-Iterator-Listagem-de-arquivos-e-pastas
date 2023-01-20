@@ -40,8 +40,8 @@
     //  TAMBÉM É USADO PARA MOSTRAR A QUANTIDADE DE ARQUIVOS ENCONTRADOS
     $contador = 1;
     foreach($iterator as $arquivoinfo){
-        if($contador == 1){
-            $arquivoinfo->next();
+        while($arquivoinfo->getFilename() == "." || $arquivoinfo->getFilename() == ".." || 
+        $arquivoinfo->getFilename() == ""){
             $arquivoinfo->next();
         }
         echo "Arquivo número " . $contador . "<br>";
@@ -58,8 +58,8 @@
             $iteratorDentroDaPasta = new DirectoryIterator(__DIR__ . "\\" . $pastaComArquivos . "\\" . $arquivoinfo->getFilename());
             $contadorDentroDaPasta = 1;
             foreach ($iteratorDentroDaPasta as $arquivoinfoDentroDaPasta) {
-                if ($contadorDentroDaPasta == 1) {
-                    $arquivoinfoDentroDaPasta->next();
+                while($arquivoinfoDentroDaPasta->getFilename() == "." || $arquivoinfoDentroDaPasta->getFilename() == ".." || 
+                $arquivoinfo->getFilename() == "") {
                     $arquivoinfoDentroDaPasta->next();
                 }
                 if($arquivoinfoDentroDaPasta->getFilename() != null){
