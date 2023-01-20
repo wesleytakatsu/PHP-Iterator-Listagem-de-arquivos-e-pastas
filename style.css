@@ -1,0 +1,22 @@
+body{
+    background-image: url("background.webp");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    color: blanchedalmond;
+}
+
+#conteudo{
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 40px;
+    border-radius: 30px;
+}
+
+a{
+    font-size: 1.3em;
+    color: aquamarine;
+}
+
+.centralizaImagem{
+    text-align: center;
+}
