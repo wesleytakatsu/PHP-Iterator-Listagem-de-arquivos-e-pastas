@@ -15,8 +15,11 @@
     <h1>Listando pastas e arquivos com PHP Iterator compatível com PHP7 e PHP8.</h1>
     <h2>Colocando arquivos dentro do mesmo diretório configurado.</h2>
     <h3>É limitado a 1 pasta de profundidade conforme colocado no exemplo.<br>
-    Existe a possibilidade de criar uma função recursiva para listar uma árvore de arquivos.</h3>
+    Existe a possibilidade de criar uma função recursiva para listar uma árvore de arquivos.<br><br>
+    Este site pode estar desatualizado, ser desativado ou estar lento por não ser dedicado a rodar sites de exemplo.</h3>
 
+    <a href="https://github.com/wesleytakatsu/PHP-Iterator-Listagem-de-arquivos-e-pastas" target="_blank">Repositório do código atualizado</a>
+    <br>
     <a href="https://www.php.net/manual/en/class.directoryiterator.php" target="_blank">Manual do PHP Iterator</a>
     <br>
     <p>Os arquivos dentro dos diretórios são de exemplo e com royaties free.</p>
@@ -27,21 +30,25 @@
 
     $pastaComArquivos = "arquivos";
 
-    $iterator = new DirectoryIterator(__DIR__ . "\\" . $pastaComArquivos);
+    $folderPath = __DIR__;
+    echo "Caminho completo do diretório:<br>" . $folderPath . "<br><br>";
+
+    //  SE FOR RODAR NO WINDOWS COLOCAR BARRA \\ E NO LINUX //
+    $iterator = new DirectoryIterator(__DIR__ . "//" . $pastaComArquivos);
     echo "Caminho completo do diretório usado no Iterator:<br>" . $iterator->getPathname() . "<br><br>";
 
     $filePath = __FILE__;
     echo "Caminho completo do diretório com nome do arquivo:<br>" . $filePath . "<br><br>";
 
-    $folderPath = __DIR__;
-    echo "Caminho completo do diretório:<br>" . $folderPath . "<br><br>";
+
 
     //  O CONTADOR SERVE PARA PULAR OS 2 PRIMEIROS QUE SÃO OS NÍVEIS ACIMA
     //  TAMBÉM É USADO PARA MOSTRAR A QUANTIDADE DE ARQUIVOS ENCONTRADOS
     $contador = 1;
     foreach($iterator as $arquivoinfo){
-        while($arquivoinfo->getFilename() == "." || $arquivoinfo->getFilename() == ".." || 
-        $arquivoinfo->getFilename() == ""){
+        while( ( strlen($arquivoinfo->getFilename()) < 3 ) || 
+            ($arquivoinfo->getExtension() == "php")
+            ){
             $arquivoinfo->next();
         }
         echo "Arquivo número " . $contador . "<br>";
@@ -55,11 +62,12 @@
         if ($arquivoinfo->isDir()) {
             echo "<hr>";
             echo "LISTANDO A PASTA: " . $arquivoinfo->getFilename() . "<br><br>";
-            $iteratorDentroDaPasta = new DirectoryIterator(__DIR__ . "\\" . $pastaComArquivos . "\\" . $arquivoinfo->getFilename());
+            $iteratorDentroDaPasta = new DirectoryIterator(__DIR__ . "//" . $pastaComArquivos . "//" . $arquivoinfo->getFilename());
             $contadorDentroDaPasta = 1;
             foreach ($iteratorDentroDaPasta as $arquivoinfoDentroDaPasta) {
-                while($arquivoinfoDentroDaPasta->getFilename() == "." || $arquivoinfoDentroDaPasta->getFilename() == ".." || 
-                $arquivoinfo->getFilename() == "") {
+                while( ( strlen($arquivoinfoDentroDaPasta->getFilename()) < 3 ) || 
+                    ($arquivoinfoDentroDaPasta->getExtension() == "php")
+                    ){
                     $arquivoinfoDentroDaPasta->next();
                 }
                 if($arquivoinfoDentroDaPasta->getFilename() != null){
